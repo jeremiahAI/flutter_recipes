@@ -18,6 +18,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   var _filters = MealTypeFilter();
   List<Meal> _availableMeals = DUMMY_MEALS;
+  List<Meal> favorites = [];
 
   void _setFilters(MealTypeFilter filters) => setState(() {
         _filters = filters;
@@ -29,6 +30,20 @@ class _MyAppState extends State<MyApp> {
           return true;
         }).toList();
       });
+
+  void _toggleFavorite(Meal meal) {
+    var index = favorites.indexWhere((element) => element.id == meal.id);
+    setState(() {
+      if (index != -1)
+        favorites.removeAt(index);
+      else
+        favorites.add(meal);
+    });
+  }
+
+  bool isMealFavorite(Meal meal) =>
+      favorites.any((element) => meal.id == element.id);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -45,11 +60,12 @@ class _MyAppState extends State<MyApp> {
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
                   fontFamily: 'RobotoCondensed'))),
-      home: TabsScreen(),
+      home: TabsScreen(favorites),
       routes: {
         CategoryMealsScreen.route: (ctx) =>
             CategoryMealsScreen(_availableMeals),
-        MealDetailsScreen.route: (ctx) => MealDetailsScreen(),
+        MealDetailsScreen.route: (ctx) =>
+            MealDetailsScreen(_toggleFavorite, isMealFavorite),
         FiltersScreen.route: (ctx) => FiltersScreen(_filters, _setFilters),
       },
     );

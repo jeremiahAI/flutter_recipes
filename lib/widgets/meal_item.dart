@@ -18,9 +18,7 @@ class MealItem extends StatelessWidget {
     }
   }
 
-  final Function(Meal) hideItem;
-
-  const MealItem(this.meal, this.hideItem);
+  const MealItem(this.meal);
 
   String get affordability {
     switch (meal.affordability) {
@@ -126,8 +124,6 @@ class MealItem extends StatelessWidget {
   }
 
   void selectMeal(BuildContext context) {
-    Navigator.of(context)
-        .pushNamed(MealDetailsScreen.route, arguments: meal)
-        .then((value) => hideItem(value is Meal ? value : null));
+    Navigator.of(context).pushNamed(MealDetailsScreen.route, arguments: meal);
   }
 }
