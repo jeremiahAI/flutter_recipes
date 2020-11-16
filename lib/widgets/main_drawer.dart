@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:recipes/screens/filters_screen.dart';
 
 class MainDrawer extends StatelessWidget {
   @override
@@ -24,8 +25,13 @@ class MainDrawer extends StatelessWidget {
           SizedBox(
             height: 20,
           ),
-          DrawerListTileWidget("Meals", Icons.restaurant),
-          DrawerListTileWidget('Settings', Icons.settings)
+          DrawerListTileWidget("Meals", Icons.restaurant,
+              () => Navigator.of(context).pushReplacementNamed('/')),
+          DrawerListTileWidget(
+              'Settings',
+              Icons.settings,
+              () => Navigator.of(context)
+                  .pushReplacementNamed(FiltersScreen.route))
         ],
       ),
     );
@@ -36,13 +42,13 @@ class DrawerListTileWidget extends StatelessWidget {
   final String title;
 
   final IconData iconData;
-
-  DrawerListTileWidget(this.title, this.iconData);
+  final Function onTap;
+  DrawerListTileWidget(this.title, this.iconData, this.onTap);
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      onTap: () {},
+      onTap: onTap,
       leading: Icon(
         iconData,
         size: 26,
