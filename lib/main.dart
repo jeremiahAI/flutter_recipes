@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:recipes/screens/categories_screen.dart';
 import 'package:recipes/screens/category_meals_screen.dart';
 import 'package:recipes/screens/meal_details_screen.dart';
+import 'package:recipes/screens/tabs_screen.dart';
 
 void main() => runApp(MyApp());
 
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
                   fontFamily: 'RobotoCondensed'))),
-      home: CategoriesScreen(),
+      home: TabsScreen(),
       routes: {
         CategoryMealsScreen.route: (ctx) => CategoryMealsScreen(),
         MealDetailsScreen.route: (ctx) => MealDetailsScreen()
